@@ -5,7 +5,7 @@ jobs:
   run-github-actions: 
     runs-on: ubuntu-latest
     steps: 
-    # Click on readme in this: https://github.com/alialaa/github-actions-course/actions
+    # Click on readme in this: https://github.com/actions/hello-world-javascript-action
       - name: Simple JS Action
         id: greet 
         uses: actions/hello-world-javascript-action@v1 #Instead of run, we use "uses" and it will take reference to an action
