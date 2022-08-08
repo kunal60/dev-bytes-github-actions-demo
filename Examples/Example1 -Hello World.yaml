@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest # Each job will run on a virtual machine. And this VM can be linux, windows and so on.
     steps:
       - name: echo a string
-        run: echo "Hello World" #Each step can perform some action
+        run: echo "Hello Temedicans" #Each step can perform some action
       - name: multiline script
         run: | #Use this pipe | symbol to run multiple commands in one step
           node -v
