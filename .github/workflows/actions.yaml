@@ -1,19 +1,17 @@
-name: Using strategy
-
+# Put it in actions.yaml
+name: Actions Workflow 
 on: [push]
-
-jobs:
-  build:
-
-    runs-on: ${{matrix.os}} #For running on multiple os
-    strategy: 
-      matrix: 
-       os: [ubuntu-latest, windows-latest, macOS-latest]
-
-    steps:
-      - name: echo a string
-        run: echo "Hello World"
-      - name: multiline script
-        run: |
-          node -v
-          npm -v
+jobs: 
+  run-github-actions: 
+    runs-on: ubuntu-latest
+    steps: 
+    # Click on readme in this: https://github.com/actions/hello-world-javascript-action
+      - name: Simple JS Action
+        id: greet 
+        uses: actions/hello-world-javascript-action@v1 #Instead of run, we use "uses" and it will take reference to an action
+        with: #to provide input to an action, use "with" keyword
+          who-to-greet: Kunal Malhotra #From the readme of the above url, we can see the input is "who-to-greet"
+          #the above action will output the time, when this string was logged 
+      - name: Log Greeting Time
+        run: echo "${{ steps.greet.outputs.time }}" #How to access the output from the above action?
+        # ${{ steps  above-> github provides this object, time above can be seen in the readme of the above action
