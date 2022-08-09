@@ -1,27 +1,19 @@
 name: Shell Commands
+# The name above is the name of the entire workflow.
+#In this example, we are just going to use shell commands,
+
+# on: [push, pull]
+# It can be one event or it can be an array of events like above
 on: [push]
+#For each workflow, we can have one or more jobs.
+#run-shell-command below is the name of job that we are creating
 jobs:
   run-shell-command:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest # Each job will run on a virtual machine. And this VM can be linux, windows and so on.
     steps:
       - name: echo a string
-        run: echo "Hello Temedicans" 
+        run: echo "Hello Temedicans" #Each step can perform some action
       - name: multiline script
-        run: | 
+        run: | #Use this pipe | symbol to run multiple commands in one step
           node -v
-          npm -v     
-      - name: python command
-        run: |
-          import platform
-          print(platform.processor())
-        shell: python     
-  run-windows-commands:
-    runs-on: windows-latest
-    needs: ["run-shell-command"]  #We have a "needs" key and needs can be an array of jobs that 
-#this job depends on.So it will only run when the jobs in this array finishes successfully. 
-    steps:
-      - name: Directory Powershell
-        run: Get-location
-      - name: Directory bash 
-        run: pwd
-        shell: bash 
+          npm -v
