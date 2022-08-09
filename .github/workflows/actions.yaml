@@ -1,26 +1,19 @@
-name: Actions Workflow 
+name: Using strategy
 
 on: [push]
 
-jobs: 
-  run-github-actions: 
-    runs-on: ubuntu-latest
+jobs:
+  build:
+
+    runs-on: ${{matrix.os}} #For running on multiple os
+    strategy: 
+      matrix: 
+       os: [ubuntu-latest, windows-latest, macOS-latest]
+
     steps:
-      - name: List Files Before checkout
-        run: | # Print Working directory and list files. When ls command is run, it doesn't have any files. By default github will not clone your repository into your working directory here
-          pwd 
-          ls -a
-      # we can use git clone command  above, but the action below is more handy
-      - name: Checkout # We can use an action to clone a repo
-        uses: actions/checkout@v1 # github username(actions) && the repo name (checkout) ...https://github.com/actions/checkout
-      - name: List Files After Checkout 
-        run: | # This will now list files
-          pwd
-          ls -a
-      - name: Simple JS Action
-        id: greet 
-        uses: actions/hello-world-javascript-action@v1 
-        with: 
-          who-to-greet: John
-      - name: Log Greeting Time
-        run: echo "${{ steps.greet.outputs.time }}"
+      - name: echo a string
+        run: echo "Hello World"
+      - name: multiline script
+        run: |
+          node -v
+          npm -v
