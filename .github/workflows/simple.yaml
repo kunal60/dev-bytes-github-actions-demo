@@ -9,19 +9,19 @@ jobs:
       - name: multiline script
         run: | 
           node -v
-          npm -v
-#In the below steps, we are going to use the python shell. Here we are just printing the processor of the machine
-# To inform github actions, that we need to run it on python and not bash use shell:python as done below      
+          npm -v     
       - name: python command
         run: |
           import platform
           print(platform.processor())
         shell: python     
-  run-windows-commands: #Created another job for windows. By default windows have powershell
+  run-windows-commands:
     runs-on: windows-latest
+    needs: ["run-shell-command"]  #We have a "needs" key and needs can be an array of jobs that 
+#this job depends on.So it will only run when the jobs in this array finishes successfully. 
     steps:
       - name: Directory Powershell
         run: Get-location
-      - name: Directory bash #We can also use bash in Windows machine
+      - name: Directory bash 
         run: pwd
         shell: bash 
