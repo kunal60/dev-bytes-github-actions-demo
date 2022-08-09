@@ -1,17 +1,26 @@
-# Put it in actions.yaml
 name: Actions Workflow 
+
 on: [push]
+
 jobs: 
   run-github-actions: 
     runs-on: ubuntu-latest
-    steps: 
-    # Click on readme in this: https://github.com/actions/hello-world-javascript-action
+    steps:
+      - name: List Files Before checkout
+        run: | # Print Working directory and list files. When ls command is run, it doesn't have any files. By default github will not clone your repository into your working directory here
+          pwd 
+          ls -a
+      # we can use git clone command  above, but the action below is more handy
+      - name: Checkout # We can use an action to clone a repo
+        uses: actions/checkout@v1 # github username(actions) && the repo name (checkout) ...https://github.com/actions/checkout
+      - name: List Files After Checkout 
+        run: | # This will now list files
+          pwd
+          ls -a
       - name: Simple JS Action
         id: greet 
-        uses: actions/hello-world-javascript-action@v1 #Instead of run, we use "uses" and it will take reference to an action
-        with: #to provide input to an action, use "with" keyword
-          who-to-greet: Kunal Malhotra #From the readme of the above url, we can see the input is "who-to-greet"
-          #the above action will output the time, when this string was logged 
+        uses: actions/hello-world-javascript-action@v1 
+        with: 
+          who-to-greet: John
       - name: Log Greeting Time
-        run: echo "${{ steps.greet.outputs.time }}" #How to access the output from the above action?
-        # ${{ steps  above-> github provides this object, time above can be seen in the readme of the above action
+        run: echo "${{ steps.greet.outputs.time }}"
