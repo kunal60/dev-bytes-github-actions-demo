@@ -1,19 +1,27 @@
 name: Shell Commands
-# The name above is the name of the entire workflow.
-#In this example, we are just going to use shell commands,
-
-# on: [push, pull]
-# It can be one event or it can be an array of events like above
 on: [push]
-#For each workflow, we can have one or more jobs.
-#run-shell-command below is the name of job that we are creating
 jobs:
   run-shell-command:
-    runs-on: ubuntu-latest # Each job will run on a virtual machine. And this VM can be linux, windows and so on.
+    runs-on: ubuntu-latest 
     steps:
       - name: echo a string
-        run: echo "Hello Temedicans" #Each step can perform some action
+        run: echo "Hello Temedicans" 
       - name: multiline script
-        run: | #Use this pipe | symbol to run multiple commands in one step
+        run: | 
           node -v
           npm -v
+#In the below steps, we are going to use the python shell. Here we are just printing the processor of the machine
+# To inform github actions, that we need to run it on python and not bash use shell:python as done below      
+      - name: python command
+        run: |
+          import platform
+          print(platform.processor())
+        shell: python     
+  run-windows-commands: #Created another job for windows. By default windows have powershell
+    runs-on: windows-latest
+    steps:
+      - name: Directory Powershell
+        run: Get-location
+      - name: Directory bash #We can also use bash in Windows machine
+        run: pwd
+        shell: bash 
